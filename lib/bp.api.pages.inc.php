@@ -18,20 +18,41 @@
 /**
  *
  */
-class CBackpackPages extends CBackpackProcessor
+class CBackpackPages
 {
-	private $_sLastRESTURL;
-
-
 	/**
 	 *
 	 */
-	public function __construct()
+	public function __construct($sAccountName, $sToken, $bHTTPS = true)
 	{
-		parent::__construct();
-
-		$this->_sLastRESTURL = "";	
+		$this->_sAccountName = $sAccountName;
+		$this->_sToken = $sToken;
+		$this->_bHTTPS = $bHTTPS;
 	}
+	
+	
+	/**
+	 *
+	 */
+	private function _query($iHTTPMethod, $sRESTURL, $sPostString = "")
+	{
+		$oRequester = new CBackpackRequestor($this->_sAccountName, $iHTTPMethod, $sRESTURL, $this->_bHTTPS);
+		
+		if (strlen($sPostString))
+			$oRequester->SetPostString($sPostString);
+		
+		$oRequester->PrepareOptions();
+		
+		return $oRequester->Query();
+	}
+	
+	
+	private function _distillate($sBpResponse)
+	(
+		$oDistiller = new CBackpackDistiller();
+		
+		return $oDistiller->Distillate($sBpResponse);
+	)
 	
 	
 	/**
@@ -39,12 +60,14 @@ class CBackpackPages extends CBackpackProcessor
 	 */
 	public function ListAll()
 	{
-		parent::SetMethod(CHTTPMethods::iPost);
-		parent::SetRESTURL("/ws/pages/all");
+		$iMethod = CHTTPMethods::iPost;
+		$sRESTURL = "/ws/pages/all";
 		
-		parent::Query()
+		// Create Token
 		
-		return;
+		$sBpResponse->_query($iMethod, $sRESTURL, $sPostString);
+		
+		return $this->_distillate($sBpResponse);
 	}
 	
 	
@@ -53,8 +76,6 @@ class CBackpackPages extends CBackpackProcessor
 	 */
 	public function Create()
 	{
-		$this->_sLastRESTURL = "";
-
 		return;
 	}
 	

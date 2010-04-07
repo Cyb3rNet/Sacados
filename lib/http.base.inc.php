@@ -14,11 +14,21 @@
  *	This file offers the request methods for the ? API service as documented at http://developer.37signals.com.
  */
  
- 
+
+/**
+ *
+ */
 class HTTPException extends Exception
 {
+	/**
+	 *
+	 */
 	private $_iCode;
 
+
+	/**
+	 *
+	 */
 	public function __construct($iCode)
 	{
 		$this->_iCode = $iCode;
@@ -30,11 +40,19 @@ class HTTPException extends Exception
 		parent::__construct($sMessage);
 	}
 	
+
+	/**
+	 *
+	 */
 	public function GetCode()
 	{
 		return $this->_iCode;
 	}
 	
+
+	/**
+	 *
+	 */
 	private function GetCodeMessage($iCode)
 	{
 		switch ($iCode)
@@ -290,108 +308,176 @@ class HTTPException extends Exception
 
 
 /**
- *	Class Implementing a CURL Connection for HTTP GET Request
+ *
  */
-class CHTTPBaseGet
+class EHTTPMethods
 {
-	private $_ch;
-	
-	protected $_sURL;
+	/**
+	 *
+	 */
+	const iPost = 0;
 
-	public function __construct($sURL)
-	{
-		$this->_ch = curl_init();
-		
-		$this->_sURL = $sURL;
-	}
 
-	public function __destruct()
-	{
-		//closing the curl
-		curl_close($this->_ch);
-	}
-	
-	public function GetURL()
-	{
-		return $this->_sURL;
-	}
-	
-	public function PrepareOptions()
-	{
-		curl_setopt($this->_ch, CURLOPT_URL, $this->_sURL);
-		curl_setopt($this->_ch, CURLOPT_RETURNTRANSFER, 1);
-	}
+	/**
+	 *
+	 */
+	const iGet = 1;
 
-	public function Execute()
-	{
-		//getting response from server
-		$sResponse = curl_exec($this->_ch);
-		
-		$iHTTPResponse = curl_getinfo($this->_ch, CURLINFO_HTTP_CODE);
-		
-		if ($iHTTPResponse != 200)
-			throw new HTTPException($iHTTPResponse);
-		
-		return $sResponse;
-	}
+
+	/**
+	 *
+	 */
+	const iDelete = 2;
+
+
+	/**
+	 *
+	 */
+	const iPut = ;
 }
 
 
 /**
- *	Class Implementing a CURL Connection for HTTP POST Request
+ *	Class Implementation of CURL
  */
-class CHTTPBasePost
+class CHTTPCurl
 {
+	/**
+	 *
+	 */
 	protected $_ch;
 	
+
+	/**
+	 *
+	 */
 	private $_sURL;
+	
+	
+	/**
+	 *
+	 */
+	private $_iHTTPMethod;
+
+
+	/**
+	 *
+	 */
 	private $_sPost;
 
-	public function __construct($sURL)
+
+	/**
+	 *
+	 */
+	private $_aHTTPHeaders;
+	
+	
+	/**
+	 *
+	 */
+	public function __construct($sURL, $iHTTPMethod = EHTTPMethods::iGet)
 	{
 		$this->_ch = curl_init();
 		
 		$this->_sURL = $sURL;
+		$this->_iHTTPMethod = $iHTTPMethod;
 		$this->_sPost = "";
+		$this->_aHTTPHeaders = array()
 	}
 
+
+	/**
+	 *
+	 */
 	public function __destruct()
 	{
 		//closing the curl
 		curl_close($this->_ch);
 	}
 	
+
+	/**
+	 *
+	 */
 	protected function _readHeader($_ch, $sHeader)
 	{
 		//echo $sHeader;
 	}
 	
+
+	/**
+	 *
+	 */
 	public function GetURL()
 	{
 		return $this->_sURL;
 	}
+	
+	
+	/**
+	 *
+	 */
+	public function AddHeader($sHeader)
+	(
+		$this->_aHTTPHeaders[] = $sHeader;
+	)
 
+
+	/**
+	 *
+	 */
 	public function PrepareOptions()
 	{
 		curl_setopt($this->_ch, CURLOPT_URL, $this->_sURL);
 		curl_setopt($this->_ch, CURLOPT_RETURNTRANSFER, 1);
-		curl_setopt($this->_ch, CURLOPT_POST, true);
+		
+		switch ($this->_iHTTPMethod)
+		{
+			case EHTTPMethods::iGet
+				//	default curl request is get
+				//curl_setopt($this->_ch, CURLOPT_HTTPGET , true);
+			break;
+			case EHTTPMethods::iPost
+				curl_setopt($this->_ch, CURLOPT_POST, true);
+			break;
+			case EHTTPMethods::iDelete
+				curl_setopt($this->_ch, CURLOPT_CUSTOMREQUEST, "DELETE");
+			break;
+			case EHTTPMethods::iPut
+				curl_setopt($this->_ch, CURLOPT_PUT, true);
+			break;
+		}
+		
+		curl_setopt($this->_ch, CURLOPT_HTTPHEADER, $this->_aHTTPHeaders);
+		
+		if (strlen($this->_sPost))
+			curl_setopt($this->_ch, CURLOPT_POSTFIELDS, $this->_sPost);
 	}
 	
+
+	/**
+	 *
+	 */
 	public function SetPostString($sPost)
 	{
 		$this->_sPost = $sPost;
 	}
 
+
+	/**
+	 *
+	 */
 	public function GetPostString()
 	{
 		return $this->_sPost;
 	}
 	
+
+	/**
+	 *
+	 */
 	public function Execute()
 	{
-		curl_setopt($this->_ch, CURLOPT_POSTFIELDS, $this->_sPost);
-
 		//getting response from server
 		$sResponse = curl_exec($this->_ch);
 		
