@@ -129,9 +129,9 @@ class CBackpackDistiller
 	
 	
 	/**
-	 *
+	 *	Returns a filtered data without the response node
 	 */
-	public function Distillate()
+	public function Distillate($sResponse)
 	{
 		
 	}

@@ -71,112 +71,78 @@ class CBackpackPages
 	}
 	
 	
-	/**
-	 *
-	 */
+/*
 	public function Create()
 	{
 		return;
 	}
 	
 	
-	/**
-	 *
-	 */
 	public function ()
 	{
 		return;
 	}
 	
 	
-	/**
-	 *
-	 */
 	public function ()
 	{
 		return;
 	}
 	
 	
-	/**
-	 *
-	 */
 	public function ()
 	{
 		return;
 	}
 	
 	
-	/**
-	 *
-	 */
 	public function ()
 	{
 		return;
 	}
 	
 	
-	/**
-	 *
-	 */
 	public function ()
 	{
 		return;
 	}
 	
 	
-	/**
-	 *
-	 */
 	public function ()
 	{
 		return;
 	}
 	
 	
-	/**
-	 *
-	 */
 	public function ()
 	{
 		return;
 	}
 	
 	
-	/**
-	 *
-	 */
 	public function ()
 	{
 		return;
 	}
 	
 	
-	/**
-	 *
-	 */
 	public function ()
 	{
 		return;
 	}
 	
 	
-	/**
-	 *
-	 */
 	public function ()
 	{
 		return;
 	}
 	
 	
-	/**
-	 *
-	 */
 	public function ()
 	{
 		return;
 	}
+*/
 }
  
  
