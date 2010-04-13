@@ -16,43 +16,31 @@
 
 
 /**
+ *	
+ */
+include("bp.api.api.base.inc.php");
+
+
+/**
+ *	
+ */
+include("bp.api.xml.objects.inc.php");
+
+
+/**
  *
  */
-class CBackpackPages
+class CBackpackAPIPages extends CBackpackAPI
 {
 	/**
 	 *
 	 */
 	public function __construct($sAccountName, $sToken, $bHTTPS = true)
 	{
-		$this->_sAccountName = $sAccountName;
-		$this->_sToken = $sToken;
-		$this->_bHTTPS = $bHTTPS;
+		parent::_sAccountName = $sAccountName;
+		parent::_sToken = $sToken;
+		parent::_bHTTPS = $bHTTPS;
 	}
-	
-	
-	/**
-	 *
-	 */
-	private function _query($iHTTPMethod, $sRESTURL, $sPostString = "")
-	{
-		$oRequester = new CBackpackRequestor($this->_sAccountName, $iHTTPMethod, $sRESTURL, $this->_bHTTPS);
-		
-		if (strlen($sPostString))
-			$oRequester->SetPostString($sPostString);
-		
-		$oRequester->PrepareOptions();
-		
-		return $oRequester->Query();
-	}
-	
-	
-	private function _distillate($sBpResponse)
-	(
-		$oDistiller = new CBackpackDistiller();
-		
-		return $oDistiller->Distillate($sBpResponse);
-	)
 	
 	
 	/**
@@ -60,14 +48,14 @@ class CBackpackPages
 	 */
 	public function ListAll()
 	{
-		$iMethod = CHTTPMethods::iPost;
+		$iMethod = NHTTPMethods::iPost;
 		$sRESTURL = "/ws/pages/all";
 		
-		// Create Token
+		$oXMLRequest = new CBpBaseRequest(parent::_sToken);
 		
-		$sBpResponse->_query($iMethod, $sRESTURL, $sPostString);
+		parent::_Query($iMethod, $sRESTURL, $oXMLRequest);
 		
-		return $this->_distillate($sBpResponse);
+		return parent::_Distillate($sBpResponse);
 	}
 	
 	

@@ -310,7 +310,7 @@ class HTTPException extends Exception
 /**
  *
  */
-class EHTTPMethods
+class NHTTPMethods
 {
 	/**
 	 *
@@ -357,7 +357,7 @@ class CHTTPCurl
 	/**
 	 *
 	 */
-	private $_iHTTPMethod;
+	private $_ciHTTPMethod;
 
 
 	/**
@@ -375,12 +375,12 @@ class CHTTPCurl
 	/**
 	 *
 	 */
-	public function __construct($sURL, $iHTTPMethod = EHTTPMethods::iGet)
+	public function __construct($sURL, $ciHTTPMethod = NHTTPMethods::iGet)
 	{
 		$this->_ch = curl_init();
 		
 		$this->_sURL = $sURL;
-		$this->_iHTTPMethod = $iHTTPMethod;
+		$this->_ciHTTPMethod = $ciHTTPMethod;
 		$this->_sPost = "";
 		$this->_aHTTPHeaders = array()
 	}
@@ -431,19 +431,19 @@ class CHTTPCurl
 		curl_setopt($this->_ch, CURLOPT_URL, $this->_sURL);
 		curl_setopt($this->_ch, CURLOPT_RETURNTRANSFER, 1);
 		
-		switch ($this->_iHTTPMethod)
+		switch ($this->_ciHTTPMethod)
 		{
-			case EHTTPMethods::iGet
+			case NHTTPMethods::iGet
 				//	default curl request is get
 				//curl_setopt($this->_ch, CURLOPT_HTTPGET , true);
 			break;
-			case EHTTPMethods::iPost
+			case NHTTPMethods::iPost
 				curl_setopt($this->_ch, CURLOPT_POST, true);
 			break;
-			case EHTTPMethods::iDelete
+			case NHTTPMethods::iDelete
 				curl_setopt($this->_ch, CURLOPT_CUSTOMREQUEST, "DELETE");
 			break;
-			case EHTTPMethods::iPut
+			case NHTTPMethods::iPut
 				curl_setopt($this->_ch, CURLOPT_PUT, true);
 			break;
 		}

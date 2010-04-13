@@ -64,6 +64,7 @@ class CBackpackRequestor extends CHTTPCurl
 		$sBpDomain = "backpackit.com";
 		
 		$this->_sAccountName = $sAccountName;
+		$this->_iHTTPMethod = $iHTTPMethod;
 		$this->_sRESTURL = $sRESTURL;
 		
 		if ($bHTTPS)
@@ -80,7 +81,7 @@ class CBackpackRequestor extends CHTTPCurl
 	 */
 	public function Query()
 	{
-		parent::__construct($this->_sURL);
+		parent::__construct($this->_sURL, $this->_iHTTPMethod);
 		
 		parent::AddHeader('Content-type: application/xml');
 
@@ -111,7 +112,6 @@ class CBackpackRequestor extends CHTTPCurl
 		return $this->_sAccountName;
 	}
 }
-
 
 
 /**
