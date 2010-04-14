@@ -277,12 +277,14 @@ class CBackpackDistiller
 	 */
 	public function Distillate($sResponse)
 	{
+		/*
 		$oXML = new SimpleXMLElement($sResponse);
-	
+
 		$aNodes = $oXML->xpath('/response[@success="true"]/*');
-	
+
 		$sResponse = $aNodes[0]->asXml();
-	
+		*/
+		
 		return $sResponse;
 	}
 }
