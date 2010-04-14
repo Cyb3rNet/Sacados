@@ -18,13 +18,13 @@
 /**
  *	
  */
-include("bp.apiw.base.inc.php");
+require_once("bp.apiw.base.inc.php");
 
 
 /**
  *	
  */
-include("bp.api.call.limitator.inc.php");
+require_once("bp.api.call.limitator.inc.php");
 
 
 /**

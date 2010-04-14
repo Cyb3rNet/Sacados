@@ -18,7 +18,7 @@
 /**
  *	
  */
-include("bp.api.base.inc.php");
+require_once("bp.api.base.inc.php");
 
 
 /**

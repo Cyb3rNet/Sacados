@@ -15,19 +15,18 @@
  */
 
 
-include("bp.apiw.utils.inc.php");
+require_once("bp.apiw.utils.inc.php");
 
 
+/**
+ *
+ */
 class CBpXOBaseRequest extends CXMLObject
 {
+	/**
+	 *
+	 */
 	public function __construct($sToken)
-	{
-		if (strlen($sToken))
-			self::_Create($sToken);
-	}
-	
-	
-	protected function _Create($sToken)
 	{
 		parent::__construct("request");
 	
@@ -38,5 +37,46 @@ class CBpXOBaseRequest extends CXMLObject
 	}
 }
 
+
+/**
+ *
+ */
+class CBpXOListItemMove extends CBpXOBaseRequest
+{
+	/**
+	 *
+	 */
+	const $sMoveHigher = 'move_higher';
+
+
+	/**
+	 *
+	 */
+	const $sMoveLower = 'move_lower';
+
+
+	/**
+	 *
+	 */
+	const $sMoveToBottom = 'move_to_bottom';
+
+
+	/**
+	 *
+	 */
+	const $sMoveToTop = 'move_to_top';
+	
+
+	/**
+	 *
+	 */
+	public function __construct($sToken, $csMoveDirection)
+	{
+		parent::__construct($sToken);
+		
+		$oXDirection = new CXMLObject("direction");
+		$oXDirection->AppendContent($csMoveDirection);
+	}
+}
 
 ?>

@@ -18,7 +18,7 @@
 /**
  *	
  */
-include("bp.api.objects.inc.php");
+require_once("bp.api.objects.inc.php");
 
 
 /**

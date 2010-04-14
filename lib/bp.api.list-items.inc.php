@@ -14,23 +14,82 @@
  *	This file offers the request methods for the ? API service as documented at http://developer.37signals.com.
  */
 
+ 
+/**
+ *	
+ */
+require_once("bp.api.base.inc.php");
+
 
 /**
  *
-
-class CBackpack? extends ?
+ */ 
+class CBackpackListItems extends CBackpackAPI
 {
-	public function __construct()
+	/**
+	 *
+	 */
+	private $_sToken;
+
+
+	/**
+	 *
+	 */
+	public function __construct($sAccountName, $sToken, $bHTTPS = true)
 	{
-		parent::__construct();
+		parent::__construct($sAccountName, $bHTTPS);
+		
+		$this->_sToken = $sToken;
+	}	
+	
+	
+	/**
+	 *
+	 */
+	public function List($iPageId, $iListId)
+	{
+		$iMethod = NHTTPMethods::iPost;
+		$sRESTURL = "/ws/page/".$iPageId."/lists/".$iListId."/items/list";
+		
+		$oXMLRequest = new CBpXOBaseRequest($this->_sToken);
+		
+		$sBpResponse = parent::_Get($iMethod, $sRESTURL, $oXMLRequest);
+		
+		return parent::_Clean($sBpResponse);
 	}
+
 	
-	
-	public function List()
+	/**
+	 *
+	 */
+	public function Toggle($iPageId, $iListId, $iItemId, $csMoveDirection)
 	{
-		return;
+		$iMethod = NHTTPMethods::iPost;
+		$sRESTURL = "/ws/page/".$iPageId."/lists/".$iListId."/items/toggle/".$iItemId;
+		
+		$oXMLRequest = new CBpXOBaseRequest($this->_sToken);
+		
+		$sBpResponse = parent::_Get($iMethod, $sRESTURL, $oXMLRequest);
+		
+		return parent::_Clean($sBpResponse);
+	}
+
+	
+	/**
+	 *
+	 */
+	public function Move($iPageId, $iListId, $iItemId, $csMoveDirection)
+	{
+		$iMethod = NHTTPMethods::iPost;
+		$sRESTURL = "/ws/page/".$iPageId."/lists/".$iListId."/items/move/".$iItemId;
+		
+		$oXMLRequest = new CBpXOListItemMove($this->_sToken, $csMoveDirection);
+		
+		$sBpResponse = parent::_Get($iMethod, $sRESTURL, $oXMLRequest);
+		
+		return parent::_Clean($sBpResponse);
 	}
 }
- */ 
+
  
 ?>

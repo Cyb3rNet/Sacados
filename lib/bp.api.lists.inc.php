@@ -16,21 +16,48 @@
 
 
 /**
- *
+ *	
+ */
+require_once("bp.api.base.inc.php");
 
-class CBackpack? extends ?
+
+/**
+ *
+ */
+class CBackpackLists extends CBackpackAPI
 {
-	public function __construct()
+	/**
+	 *
+	 */
+	private $_sToken;
+
+
+	/**
+	 *
+	 */
+	public function __construct($sAccountName, $sToken, $bHTTPS = true)
 	{
-		parent::__construct();
-	}
+		parent::__construct($sAccountName, $bHTTPS);
+		
+		$this->_sToken = $sToken;
+	}	
 	
 	
-	public function List()
+	/**
+	 *
+	 */
+	public function List($iPageId)
 	{
-		return;
+		$iMethod = NHTTPMethods::iPost;
+		$sRESTURL = "/ws/page/".$iPageId."/lists/list";
+		
+		$oXMLRequest = new CBpXOBaseRequest($this->_sToken);
+		
+		$sBpResponse = parent::_Get($iMethod, $sRESTURL, $oXMLRequest);
+		
+		return parent::_Clean($sBpResponse);
 	}
 }
- */
+
  
 ?>
