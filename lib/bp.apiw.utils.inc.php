@@ -24,6 +24,12 @@ include("bp.apiw.base.inc.php");
 /**
  *	
  */
+include("bp.api.call.limitator.inc.php");
+
+
+/**
+ *	
+ */
 class CXMLObject
 {
 	/**
@@ -123,7 +129,7 @@ class CXMLObject
 	/**
 	 *	
 	 */
-	protected function __Generate()
+	protected function _Generate()
 	{
 		$this->_sStartNode = $this->_ComposeStartNode();
 		$this->_sEndNode = $this->_ComposeEndNode();
@@ -137,7 +143,7 @@ class CXMLObject
 	 */
 	public function __toString()
 	{
-		self::_Generate();
+		return self::_Generate();
 	}
 }
 
@@ -145,8 +151,14 @@ class CXMLObject
 /**
  *	
  */
-class CBackpackRequestor extends CHTTPCurl
+class CBackpackRequestor extends CBackpackAPICallLimitator
 {
+	/**
+	 *	
+	 */
+	private $_oConnection;
+
+
 	/**
 	 *	
 	 */
@@ -194,6 +206,19 @@ class CBackpackRequestor extends CHTTPCurl
 			$this->_sProtocol = "http";
 		
 		$this->_sURL = $this->_sProtocol."://".$this->_sAccountName.".".$sBpDomain.$this->_sRESTURL;
+
+		$this->_oConnection = new CHTTPCurl($this->_sURL, $this->_iHTTPMethod);
+		
+		parent::__construct();
+	}
+	
+	
+	/**
+	 *
+	 */
+	public function SetRequestObject($oRequest)
+	{
+		$this->_oConnection->SetPostString($oRequest);
 	}
 	
 
@@ -202,15 +227,13 @@ class CBackpackRequestor extends CHTTPCurl
 	 */
 	public function Query()
 	{
-		parent::__construct($this->_sURL, $this->_iHTTPMethod);
-		
-		parent::AddHeader('Content-type: application/xml');
+		$this->_oConnection->AddHeader('Content-type: application/xml');
 
-		parent::PrepareOptions();
+		$this->_oConnection->PrepareOptions();
 		
-		$sResponse = parent::Execute();
+		$sResponse = $this->_oConnection->Execute();
 		
-		parent::__destroy();
+		unset($this->_oConnection);
 		
 		return $sResponse;
 	}
@@ -254,7 +277,13 @@ class CBackpackDistiller
 	 */
 	public function Distillate($sResponse)
 	{
-		
+		$oXML = new SimpleXMLElement($sResponse);
+	
+		$aNodes = $oXML->xpath('/response[@success="true"]/*');
+	
+		$sResponse = $aNodes[0]->asXml();
+	
+		return $sResponse;
 	}
 }
 

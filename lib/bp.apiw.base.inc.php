@@ -44,7 +44,7 @@ class HTTPException extends Exception
 	/**
 	 *
 	 */
-	public function GetCode()
+	public function GetStatusCode()
 	{
 		return $this->_iCode;
 	}
@@ -333,7 +333,7 @@ class NHTTPMethods
 	/**
 	 *
 	 */
-	const iPut = ;
+	const iPut = 3;
 }
 
 
@@ -382,7 +382,7 @@ class CHTTPCurl
 		$this->_sURL = $sURL;
 		$this->_ciHTTPMethod = $ciHTTPMethod;
 		$this->_sPost = "";
-		$this->_aHTTPHeaders = array()
+		$this->_aHTTPHeaders = array();
 	}
 
 
@@ -418,9 +418,9 @@ class CHTTPCurl
 	 *
 	 */
 	public function AddHeader($sHeader)
-	(
+	{
 		$this->_aHTTPHeaders[] = $sHeader;
-	)
+	}
 
 
 	/**
@@ -433,17 +433,17 @@ class CHTTPCurl
 		
 		switch ($this->_ciHTTPMethod)
 		{
-			case NHTTPMethods::iGet
+			case NHTTPMethods::iGet:
 				//	default curl request is get
 				//curl_setopt($this->_ch, CURLOPT_HTTPGET , true);
 			break;
-			case NHTTPMethods::iPost
+			case NHTTPMethods::iPost:
 				curl_setopt($this->_ch, CURLOPT_POST, true);
 			break;
-			case NHTTPMethods::iDelete
+			case NHTTPMethods::iDelete:
 				curl_setopt($this->_ch, CURLOPT_CUSTOMREQUEST, "DELETE");
 			break;
-			case NHTTPMethods::iPut
+			case NHTTPMethods::iPut:
 				curl_setopt($this->_ch, CURLOPT_PUT, true);
 			break;
 		}

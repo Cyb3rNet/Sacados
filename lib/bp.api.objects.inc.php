@@ -18,7 +18,7 @@
 include("bp.apiw.utils.inc.php");
 
 
-class CXOBpBaseRequest extends CXMLObject
+class CBpXOBaseRequest extends CXMLObject
 {
 	public function __construct($sToken)
 	{
@@ -31,10 +31,10 @@ class CXOBpBaseRequest extends CXMLObject
 	{
 		parent::__construct("request");
 	
-		$oToken = new CXMLObject("token");
-		$oToken->AppendContent($sToken);
+		$oXToken = new CXMLObject("token");
+		$oXToken->AppendContent($sToken);
 		
-		parent::AppendContent($oToken);
+		parent::AppendContent($oXToken);
 	}
 }
 

@@ -220,18 +220,18 @@ class CTestClass
 			
 		if (count($avArgs))
 		{
-			call_user_func_array(array($this->_oC, $sMethodName), $avArgs);
+			$vReturn1 = call_user_func_array(array($this->_oC, $sMethodName), $avArgs);
 		}
 		else
 		{
-			call_user_func(array($this->_oC, $sMethodName));
+			$vReturn1 = call_user_func(array($this->_oC, $sMethodName));
 		}
 		
 		$vReturn2 = ob_get_contents();
 		
 		ob_end_clean();
 		
-		return $vReturn2;
+		return $vReturn1.$vReturn2;
 	}
 }
 

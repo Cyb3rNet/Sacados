@@ -29,28 +29,21 @@ abstract class CBackpackAPI
 	/**
 	 *
 	 */
-	protected $_sAccountName;
+	private $_sAccountName;
 
 
 	/**
 	 *
 	 */
-	protected $_sToken;
+	private $_bHTTPS;
 
 
 	/**
 	 *
 	 */
-	protected $_bHTTPS;
-
-
-	/**
-	 *
-	 */
-	public function __construct($sAccountName, $sToken, $bHTTPS)
+	public function __construct($sAccountName, $bHTTPS)
 	{
 		$this->_sAccountName = $sAccountName;
-		$this->_sToken = $sToken;
 		$this->_bHTTPS = $bHTTPS;
 	}
 	
@@ -62,11 +55,9 @@ abstract class CBackpackAPI
 	{
 		$oRequester = new CBackpackRequestor($this->_sAccountName, $iHTTPMethod, $sRESTURL, $this->_bHTTPS);
 		
-		$sPostString = $oXMLRequest->Generate();
+		$sPostString = (string) $oXMLRequest;
 		
-		$oRequester->SetPostString($sPostString);
-		
-		$oRequester->PrepareOptions();
+		$oRequester->SetRequestObject($sPostString);
 		
 		return $oRequester->Query();
 	}
@@ -76,11 +67,11 @@ abstract class CBackpackAPI
 	 *
 	 */
 	protected function _Clean($sBpResponse)
-	(
+	{
 		$oDistiller = new CBackpackDistiller();
 		
 		return $oDistiller->Distillate($sBpResponse);
-	)
+	}
 }
 
 

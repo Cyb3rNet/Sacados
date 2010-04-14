@@ -29,11 +29,17 @@ class CBackpackAPIPages extends CBackpackAPI
 	/**
 	 *
 	 */
+	private $_sToken;
+
+
+	/**
+	 *
+	 */
 	public function __construct($sAccountName, $sToken, $bHTTPS = true)
 	{
-		parent::_sAccountName = $sAccountName;
-		parent::_sToken = $sToken;
-		parent::_bHTTPS = $bHTTPS;
+		parent::__construct($sAccountName, $bHTTPS);
+		
+		$this->_sToken = $sToken;
 	}
 	
 	
@@ -45,86 +51,12 @@ class CBackpackAPIPages extends CBackpackAPI
 		$iMethod = NHTTPMethods::iPost;
 		$sRESTURL = "/ws/pages/all";
 		
-		$oXMLRequest = new CXOBpBaseRequest(parent::_sToken);
+		$oXMLRequest = new CBpXOBaseRequest($this->_sToken);
 		
-		parent::_Get($iMethod, $sRESTURL, $oXMLRequest);
+		$sBpResponse = parent::_Get($iMethod, $sRESTURL, $oXMLRequest);
 		
 		return parent::_Clean($sBpResponse);
 	}
-	
-	
-/*
-	public function Create()
-	{
-		return;
-	}
-	
-	
-	public function ()
-	{
-		return;
-	}
-	
-	
-	public function ()
-	{
-		return;
-	}
-	
-	
-	public function ()
-	{
-		return;
-	}
-	
-	
-	public function ()
-	{
-		return;
-	}
-	
-	
-	public function ()
-	{
-		return;
-	}
-	
-	
-	public function ()
-	{
-		return;
-	}
-	
-	
-	public function ()
-	{
-		return;
-	}
-	
-	
-	public function ()
-	{
-		return;
-	}
-	
-	
-	public function ()
-	{
-		return;
-	}
-	
-	
-	public function ()
-	{
-		return;
-	}
-	
-	
-	public function ()
-	{
-		return;
-	}
-*/
 }
  
  

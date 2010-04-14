@@ -17,134 +17,20 @@
 
 /**
  *
- */
+
 class CBackpack? extends ?
 {
-	/**
-	 *
-	 */
 	public function __construct()
 	{
 		parent::__construct();
 	}
 	
 	
-	/**
-	 *
-	 */
 	public function List()
 	{
 		return;
 	}
-	
-	
-	/**
-	 *
-	 */
-	public function Create()
-	{
-		return;
-	}
-	
-	
-	/**
-	 *
-	 */
-	public function ()
-	{
-		return;
-	}
-	
-	
-	/**
-	 *
-	 */
-	public function ()
-	{
-		return;
-	}
-	
-	
-	/**
-	 *
-	 */
-	public function ()
-	{
-		return;
-	}
-	
-	
-	/**
-	 *
-	 */
-	public function ()
-	{
-		return;
-	}
-	
-	
-	/**
-	 *
-	 */
-	public function ()
-	{
-		return;
-	}
-	
-	
-	/**
-	 *
-	 */
-	public function ()
-	{
-		return;
-	}
-	
-	
-	/**
-	 *
-	 */
-	public function ()
-	{
-		return;
-	}
-	
-	
-	/**
-	 *
-	 */
-	public function ()
-	{
-		return;
-	}
-	
-	
-	/**
-	 *
-	 */
-	public function ()
-	{
-		return;
-	}
-	
-	
-	/**
-	 *
-	 */
-	public function ()
-	{
-		return;
-	}
-	
-	
-	/**
-	 *
-	 */
-	public function ()
-	{
-		return;
-	}
 }
- 
+ */
  
 ?>
