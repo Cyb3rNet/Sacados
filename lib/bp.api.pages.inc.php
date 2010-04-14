@@ -2,7 +2,7 @@
 
 
 /**
- *	@package Wrappers
+ *	@package [5]APIChild
  *	@version 1.0
  *	@license MIT License
  *
@@ -18,13 +18,7 @@
 /**
  *	
  */
-include("bp.api.api.base.inc.php");
-
-
-/**
- *	
- */
-include("bp.api.xml.objects.inc.php");
+include("bp.api.base.inc.php");
 
 
 /**
@@ -51,11 +45,11 @@ class CBackpackAPIPages extends CBackpackAPI
 		$iMethod = NHTTPMethods::iPost;
 		$sRESTURL = "/ws/pages/all";
 		
-		$oXMLRequest = new CBpBaseRequest(parent::_sToken);
+		$oXMLRequest = new CXOBpBaseRequest(parent::_sToken);
 		
-		parent::_Query($iMethod, $sRESTURL, $oXMLRequest);
+		parent::_Get($iMethod, $sRESTURL, $oXMLRequest);
 		
-		return parent::_Distillate($sBpResponse);
+		return parent::_Clean($sBpResponse);
 	}
 	
 	

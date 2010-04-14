@@ -2,7 +2,7 @@
 
 
 /**
- *	@package Wrappers
+ *	@package [3]APIParent
  *	@version 1.0
  *	@license MIT License
  *
@@ -18,10 +18,13 @@
 /**
  *	
  */
-include("bp.tools.inc.php");
+include("bp.api.objects.inc.php");
 
 
-class CBackpackAPI
+/**
+ *	
+ */
+abstract class CBackpackAPI
 {
 	/**
 	 *
@@ -55,11 +58,11 @@ class CBackpackAPI
 	/**
 	 *
 	 */
-	protected function _Query($iHTTPMethod, $sRESTURL, $oXMLRequest)
+	protected function _Get($iHTTPMethod, $sRESTURL, $oXMLRequest)
 	{
 		$oRequester = new CBackpackRequestor($this->_sAccountName, $iHTTPMethod, $sRESTURL, $this->_bHTTPS);
 		
-		$sPostString = (string) $oXMLRequest;
+		$sPostString = $oXMLRequest->Generate();
 		
 		$oRequester->SetPostString($sPostString);
 		
@@ -72,7 +75,7 @@ class CBackpackAPI
 	/**
 	 *
 	 */
-	protected function _Distillate($sBpResponse)
+	protected function _Clean($sBpResponse)
 	(
 		$oDistiller = new CBackpackDistiller();
 		

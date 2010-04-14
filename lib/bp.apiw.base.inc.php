@@ -2,7 +2,7 @@
 
 
 /**
- *	@package Connexions
+ *	@package [0]Base
  *	@version 1.0
  *	@license MIT License
  *

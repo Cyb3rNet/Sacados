@@ -2,7 +2,7 @@
 
 
 /**
- *	@package Connexions
+ *	@package [1]Utilitaries
  *	@version 1.0
  *	@license MIT License
  *
@@ -18,7 +18,128 @@
 /**
  *	
  */
-include("http.base.inc.php");
+include("bp.apiw.base.inc.php");
+
+
+/**
+ *	
+ */
+class CXMLObject
+{
+	/**
+	 *	
+	 */
+	private $_sStartNode;
+
+
+	/**
+	 *	
+	 */
+	private $_sEndNode;
+
+
+	/**
+	 *	
+	 */
+	private $_sContent;
+
+
+	/**
+	 *	
+	 */
+	private $_aAttrs;
+	
+
+	/**
+	 *	
+	 */
+	public function __construct($sTagName)
+	{
+		$this->_sTagName = $sTagName;
+	
+		$this->_sStartNode = "";
+		$this->_sEndNode = "";
+		
+		$this->_sContent = "";
+		
+		$this->_aAttrs = array();
+	}
+	
+
+	/**
+	 *	
+	 */
+	public function AddAttr($sName, $sValue)
+	{
+		$this->_aAttrs[$sName] = $sValue;
+	}
+	
+
+	/**
+	 *	
+	 */
+	public function AppendContent($sContent)
+	{
+		$this->_sContent .= $sContent;
+	}
+	
+
+	/**
+	 *	
+	 */
+	public function ReplaceContent($sContent)
+	{
+		$this->_sContent = $sContent;
+	}
+	
+
+	/**
+	 *	
+	 */
+	protected function _ComposeStartNode()
+	{
+		$sAttrs = "";
+	
+		foreach ($this->_aAttrs as $k => $v)
+		{
+			$sAttrs .= $k.'="'.$v.'" ';
+		}
+	
+		return "<".$this->_sTagName." ".$sAttrs.">";
+	}
+	
+	
+	/**
+	 *
+	 */
+	protected function _ComposeEndNode()
+	{
+		$sEndNode = "</".$this->_sTagName.">";
+		
+		return $sEndNode;
+	}
+	
+
+	/**
+	 *	
+	 */
+	protected function __Generate()
+	{
+		$this->_sStartNode = $this->_ComposeStartNode();
+		$this->_sEndNode = $this->_ComposeEndNode();
+	
+		return $this->_sStartNode.$this->_sContent.$this->_sEndNode;
+	}
+
+
+	/**
+	 *	
+	 */
+	public function __toString()
+	{
+		self::_Generate();
+	}
+}
 
 
 /**
