@@ -46,7 +46,7 @@ class CBackpackAPIPages extends CBackpackAPI
 	/**
 	 *
 	 */
-	public function ListAll()
+	public function ShowAll()
 	{
 		$iMethod = NHTTPMethods::iPost;
 		$sRESTURL = "/ws/pages/all";

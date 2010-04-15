@@ -46,7 +46,7 @@ class CBackpackLists extends CBackpackAPI
 	/**
 	 *
 	 */
-	public function List($iPageId)
+	public function Show($iPageId)
 	{
 		$iMethod = NHTTPMethods::iPost;
 		$sRESTURL = "/ws/page/".$iPageId."/lists/list";

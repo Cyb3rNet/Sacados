@@ -46,7 +46,7 @@ class CBackpackListItems extends CBackpackAPI
 	/**
 	 *
 	 */
-	public function List($iPageId, $iListId)
+	public function Show($iPageId, $iListId)
 	{
 		$iMethod = NHTTPMethods::iPost;
 		$sRESTURL = "/ws/page/".$iPageId."/lists/".$iListId."/items/list";
@@ -62,7 +62,7 @@ class CBackpackListItems extends CBackpackAPI
 	/**
 	 *
 	 */
-	public function Toggle($iPageId, $iListId, $iItemId, $csMoveDirection)
+	public function Toggle($iPageId, $iListId, $iItemId)
 	{
 		$iMethod = NHTTPMethods::iPost;
 		$sRESTURL = "/ws/page/".$iPageId."/lists/".$iListId."/items/toggle/".$iItemId;

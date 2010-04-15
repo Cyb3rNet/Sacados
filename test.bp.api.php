@@ -80,11 +80,8 @@ include("test/utils.inc.php");
 // BACKPACK API FILE TESTS
 //
 include("test/test.bp.api.pages.inc.php");
-//include("test/test.github.api.issues.inc.php");
-//include("test/test.github.api.network.inc.php");
-//include("test/test.github.api.repository.inc.php");
-//include("test/test.github.api.commit.inc.php");
-//include("test/test.github.api.object.inc.php");
+include("test/test.bp.api.lists.inc.php");
+include("test/test.bp.api.list-items.inc.php");
 
 ?>
 

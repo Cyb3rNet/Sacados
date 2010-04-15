@@ -46,25 +46,25 @@ class CBpXOListItemMove extends CBpXOBaseRequest
 	/**
 	 *
 	 */
-	const $sMoveHigher = 'move_higher';
+	const sMoveHigher = 'move_higher';
 
 
 	/**
 	 *
 	 */
-	const $sMoveLower = 'move_lower';
+	const sMoveLower = 'move_lower';
 
 
 	/**
 	 *
 	 */
-	const $sMoveToBottom = 'move_to_bottom';
+	const sMoveToBottom = 'move_to_bottom';
 
 
 	/**
 	 *
 	 */
-	const $sMoveToTop = 'move_to_top';
+	const sMoveToTop = 'move_to_top';
 	
 
 	/**
@@ -76,6 +76,8 @@ class CBpXOListItemMove extends CBpXOBaseRequest
 		
 		$oXDirection = new CXMLObject("direction");
 		$oXDirection->AppendContent($csMoveDirection);
+		
+		parent::AppendContent($oXDirection);
 	}
 }
 
