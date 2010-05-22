@@ -18,7 +18,7 @@
 /**
  *	
  */
-require_once("bp.api.base.inc.php");
+require_once( "bp.api.base.inc.php" );
 
 
 /**
@@ -35,9 +35,9 @@ class CBackpackAPIPages extends CBackpackAPI
 	/**
 	 *
 	 */
-	public function __construct($sAccountName, $sToken, $bHTTPS = true)
+	public function __construct( $sAccountName, $sToken, $bHTTPS = true )
 	{
-		parent::__construct($sAccountName, $bHTTPS);
+		parent::__construct( $sAccountName, $bHTTPS );
 		
 		$this->_sToken = $sToken;
 	}
@@ -46,16 +46,48 @@ class CBackpackAPIPages extends CBackpackAPI
 	/**
 	 *
 	 */
-	public function ShowAll()
+	public function ListAll()
 	{
 		$iMethod = NHTTPMethods::iPost;
 		$sRESTURL = "/ws/pages/all";
 		
-		$oXMLRequest = new CBpXOBaseRequest($this->_sToken);
+		$oXMLRequest = new CBpXOBaseRequest( $this->_sToken );
 		
-		$sBpResponse = parent::_Get($iMethod, $sRESTURL, $oXMLRequest);
+		$sBpResponse = parent::_Get( $iMethod, $sRESTURL, $oXMLRequest );
 		
-		return parent::_Clean($sBpResponse);
+		return parent::_Clean( $sBpResponse );
+	}
+	
+	
+	/**
+	 *
+	 */
+	public function Search( $sNeedle )
+	{
+		$iMethod = NHTTPMethods::iPost;
+		$sRESTURL = "/ws/pages/search";
+		
+		$oXMLRequest = new CBpXOPageSearch( $this->_sToken, $sNeedle );
+		
+		$sBpResponse = parent::_Get( $iMethod, $sRESTURL, $oXMLRequest );
+		
+		return parent::_Clean( $sBpResponse );
+	}
+	
+	
+	/**
+	 *
+	 */
+	public function Show( $iId )
+	{
+		$iMethod = NHTTPMethods::iPost;
+		$sRESTURL = "/ws/page/".$iId;
+		
+		$oXMLRequest = new CBpXOBaseRequest( $this->_sToken );
+		
+		$sBpResponse = parent::_Get( $iMethod, $sRESTURL, $oXMLRequest );
+		
+		return parent::_Clean( $sBpResponse );
 	}
 }
  

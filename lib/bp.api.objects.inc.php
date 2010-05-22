@@ -81,4 +81,24 @@ class CBpXOListItemMove extends CBpXOBaseRequest
 	}
 }
 
+
+/**
+ *
+ */
+class CBpXOPageSearch extends CBpXOBaseRequest
+{
+	/**
+	 *
+	 */
+	public function __construct($sToken, $sNeedle)
+	{
+		parent::__construct($sToken);
+		
+		$oXDirection = new CXMLObject("term");
+		$oXDirection->AppendContent($sNeedle);
+		
+		parent::AppendContent($oXDirection);
+	}
+}
+
 ?>

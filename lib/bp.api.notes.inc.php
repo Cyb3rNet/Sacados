@@ -2,7 +2,7 @@
 
 
 /**
- *	@package Wrappers
+ *	@package [5]APIChild
  *	@version 1.0
  *	@license MIT License
  *
@@ -18,13 +18,13 @@
 /**
  *	
  */
-require_once("bp.api.base.inc.php");
+require_once( "bp.api.base.inc.php" );
 
 
 /**
  *
  */
-class CBackpackLists extends CBackpackAPI
+class CBackpackAPINotes extends CBackpackAPI
 {
 	/**
 	 *
@@ -40,16 +40,16 @@ class CBackpackLists extends CBackpackAPI
 		parent::__construct( $sAccountName, $bHTTPS );
 		
 		$this->_sToken = $sToken;
-	}	
+	}
 	
 	
 	/**
 	 *
 	 */
-	public function Show( $iPageId )
+	public function List( $sPageId )
 	{
 		$iMethod = NHTTPMethods::iPost;
-		$sRESTURL = "/ws/page/".$iPageId."/lists/list";
+		$sRESTURL = "/ws/page/".$sPageId."/notes/list";
 		
 		$oXMLRequest = new CBpXOBaseRequest( $this->_sToken );
 		
@@ -58,6 +58,6 @@ class CBackpackLists extends CBackpackAPI
 		return parent::_Clean( $sBpResponse );
 	}
 }
-
+ 
  
 ?>
