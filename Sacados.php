@@ -48,7 +48,7 @@ class Sacados extends BpAPI
 	{
 		$this->_init_validate_params( $aParams );
 	
-		parent::__construct( $sAccountName, $sToken, $bHTTPS );
+		parent::__construct( $this->_sAccountName, $this->_sToken, $this->_bHTTPS );
 	}
 	
 	
@@ -61,7 +61,7 @@ class Sacados extends BpAPI
 	 */
 	private function _init_validate_params( $aParams )
 	{
-		if ( count( $aParams ) != 2 )
+		if ( count( $aParams ) < 2 )
 		{
 			$sErrMsg = 'The Sacados instatiation parameters are not of the minimal count of 2.';
 		
@@ -147,6 +147,45 @@ class BpApi
 		$this->_bHTTPS = $bHTTPS;
 	}
 	
+	
+	/**
+	 *	Identifies if a value leads the HTTPS protocol usage 
+	 *
+	 *	@param mixed $mHTTPS Indicates if HTTPS usage is explicitly asked
+	 *
+	 *	@access private
+	 *	@return bool
+	 */
+	private function _get_HTTPS( $mHTTPS )
+	{
+		$bIsHTTPS = $mHTTPS;
+
+		if ( is_null( $mHTTPS ) == TRUE )
+		{
+			$bIsHTTPS = $this->_bHTTPS;
+		}
+		
+		return $bIsHTTPS;
+	}
+	
+	
+	/**
+	 *	Garbage manager; Keeps class at minimum size; Returns a running service reference object
+	 *
+	 *	@param object $oNewAPIService Hols the new API Service to be used
+	 *
+	 *	@access protected
+	 *	@return object
+	 */
+	protected function &_GarbMan( &$oService )
+	{
+		unset( $this->_oActualService );
+		
+		$this->_oActualService =& $oService;
+		
+		return $this->_oActualService;
+	}
+	
 
 	/**
 	 *	Returns the Backpack Pages API object
@@ -156,9 +195,13 @@ class BpApi
 	 *	@access public
 	 *	@return object
 	 */
-	public function &pages( $bHTTPS = $this->_bHTTPS )
+	public function &pages( $mHTTPS = NULL )
 	{
-		return = new CBackpackAPIPages( $this->_sAccountName, $this->_sToken, $bHTTPS );
+		$bHTTPS = $this->_get_HTTPS( $mHTTPS );
+	
+		$oService =& new CBackpackAPIPages( $this->_sAccountName, $this->_sToken, $bHTTPS );
+		
+		return $this->_GarbMan( $oService );
 	}
 	
 
@@ -170,9 +213,13 @@ class BpApi
 	 *	@access public
 	 *	@return object
 	 */
-	public function &notes( $bHTTPS = $this->_bHTTPS )
+	public function &notes( $mHTTPS = NULL )
 	{
-		return = new CBackpackAPINotes( $this->_sAccountName, $this->_sToken, $bHTTPS );
+		$bHTTPS = $this->_get_HTTPS( $mHTTPS );
+	
+		$oService =& new CBackpackAPINotes( $this->_sAccountName, $this->_sToken, $bHTTPS );
+		
+		return $this->_GarbMan( $oService );
 	}
 	
 
@@ -184,9 +231,13 @@ class BpApi
 	 *	@access public
 	 *	@return object
 	 */
-	public function &lists( $bHTTPS = $this->_bHTTPS )
+	public function &lists( $mHTTPS = NULL )
 	{
-		return = new CBackpackAPILists( $this->_sAccountName, $this->_sToken, $bHTTPS );
+		$bHTTPS = $this->_get_HTTPS( $mHTTPS );
+	
+		$oService =& new CBackpackAPILists( $this->_sAccountName, $this->_sToken, $bHTTPS );
+		
+		return $this->_GarbMan( $oService );
 	}
 	
 
@@ -198,9 +249,13 @@ class BpApi
 	 *	@access public
 	 *	@return object
 	 */
-	public function &list_items( $bHTTPS = $this->_bHTTPS )
+	public function &list_items( $mHTTPS = NULL )
 	{
-		return = new CBackpackAPIListItems( $this->_sAccountName, $this->_sToken, $bHTTPS );
+		$bHTTPS = $this->_get_HTTPS( $mHTTPS );
+	
+		$oService =& new CBackpackAPIListItems( $this->_sAccountName, $this->_sToken, $bHTTPS );
+		
+		return $this->_GarbMan( $oService );
 	}
 	
 
@@ -212,9 +267,13 @@ class BpApi
 	 *	@access public
 	 *	@return object
 	 */
-	//public function separators( $bHTTPS = $this->_bHTTPS )
+	//public function separators( $mHTTPS = NULL )
 	//{
-	//	return = new CBackpackAPISeparators( $this->_sAccountName, $this->_sToken, $bHTTPS );
+	//	$bHTTPS = $this->_get_HTTPS( $mHTTPS );
+	//
+	//	$oService =& new CBackpackAPISeparators( $this->_sAccountName, $this->_sToken, $bHTTPS );
+	//	
+	//	return $this->_GarbMan( $oService );
 	//}
 	
 
@@ -226,9 +285,13 @@ class BpApi
 	 *	@access public
 	 *	@return object
 	 */
-	public function &tags( $bHTTPS = $this->_bHTTPS )
+	public function &tags( $mHTTPS = NULL )
 	{
-		return = new CBackpackAPITags( $this->_sAccountName, $this->_sToken, $bHTTPS );
+		$bHTTPS = $this->_get_HTTPS( $mHTTPS );
+	
+		$oService =& new CBackpackAPITags( $this->_sAccountName, $this->_sToken, $bHTTPS );
+		
+		return $this->_GarbMan( $oService );
 	}
 	
 
@@ -240,11 +303,34 @@ class BpApi
 	 *	@access public
 	 *	@return object
 	 */
-	//public function &reminders( $bHTTPS = $this->_bHTTPS )
+	//public function &reminders( $mHTTPS = NULL )
 	//{
-	//	return = new CBackpackAPIReminders( $this->_sAccountName, $this->_sToken, $bHTTPS );
+	//	$bHTTPS = $this->_get_HTTPS( $mHTTPS );
+	//
+	//	$oService =& new CBackpackAPIReminders( $this->_sAccountName, $this->_sToken, $bHTTPS );
+	//	
+	//	return $this->_GarbMan( $oService );
 	//}
 	
+
+	/**
+	 *	Returns the Backpack Emails API object
+	 *
+	 *	@param bool $bHTTPS Indicates if this request object transacts in HTTPS
+	 *
+	 *	@access public
+	 *	@return object
+	 */
+	//public function &emails( $mHTTPS = NULL )
+	//{
+	//	$bHTTPS = $this->_get_HTTPS( $mHTTPS );
+	//
+	//	$oService =& new CBackpackAPIStatus( $this->_sAccountName, $this->_sToken, $bHTTPS );
+	//	
+	//	return $this->_GarbMan( $oService );
+	//}
+
+
 
 	/**
 	 *	Returns the Backpack Status API object
@@ -254,10 +340,13 @@ class BpApi
 	 *	@access public
 	 *	@return object
 	 */
-	//public $emails;
-	//public function &status( $bHTTPS = $this->_bHTTPS )
+	//public function &status( $mHTTPS = NULL )
 	//{
-	//	return = new CBackpackAPIStatus( $this->_sAccountName, $this->_sToken, $bHTTPS );
+	//	$bHTTPS = $this->_get_HTTPS( $mHTTPS );
+	//
+	//	$oService =& new CBackpackAPIStatus( $this->_sAccountName, $this->_sToken, $bHTTPS );
+	//	
+	//	return $this->_GarbMan( $oService );
 	//}
 	
 
@@ -269,9 +358,13 @@ class BpApi
 	 *	@access public
 	 *	@return object
 	 */
-	//public function &journal( $bHTTPS = $this->_bHTTPS )
+	//public function &journal( $mHTTPS = NULL )
 	//{
-	//	return = new CBackpackAPIJournal( $this->_sAccountName, $this->_sToken, $bHTTPS );
+	//	$bHTTPS = $this->_get_HTTPS( $mHTTPS );
+	//
+	//	$oService =& new CBackpackAPIJournal( $this->_sAccountName, $this->_sToken, $bHTTPS );
+	//	
+	//	return $this->_GarbMan( $oService );
 	//}
 	
 
@@ -283,9 +376,13 @@ class BpApi
 	 *	@access public
 	 *	@return object
 	 */
-	//public function &users( $bHTTPS = $this->_bHTTPS )
+	//public function &users( $mHTTPS = NULL )
 	//{
-	//	return = new CBackpackAPIUsers( $this->_sAccountName, $this->_sToken, $bHTTPS );
+	//	$bHTTPS = $this->_get_HTTPS( $mHTTPS );
+	//
+	//	$oService =& new CBackpackAPIUsers( $this->_sAccountName, $this->_sToken, $bHTTPS );
+	//	
+	//	return $this->_GarbMan( $oService );
 	//}
 	
 
@@ -297,9 +394,13 @@ class BpApi
 	 *	@access public
 	 *	@return object
 	 */
-	//public function &bookmarks( $bHTTPS = $this->_bHTTPS )
+	//public function &bookmarks( $mHTTPS = NULL )
 	//{
-	//	return = new CBackpackAPIPages( $this->_sAccountName, $this->_sToken, $bHTTPS );
+	//	$bHTTPS = $this->_get_HTTPS( $mHTTPS );
+	//
+	//	$oService =& new CBackpackAPIPages( $this->_sAccountName, $this->_sToken, $bHTTPS );
+	//	
+	//	return $this->_GarbMan( $oService );
 	//}
 }
 
