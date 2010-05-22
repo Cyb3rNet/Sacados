@@ -49,7 +49,7 @@ class CBackpackAPITags extends CBackpackAPI
 	public function PageMatches( $sTagId )
 	{
 		$iMethod = NHTTPMethods::iPost;
-		$sRESTURL = "/ws/tags/select/"$sTagId;
+		$sRESTURL = "/ws/tags/select/".$sTagId;
 		
 		$oXMLRequest = new CBpXOBaseRequest( $this->_sToken );
 		

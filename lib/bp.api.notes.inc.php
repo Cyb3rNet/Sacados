@@ -46,7 +46,7 @@ class CBackpackAPINotes extends CBackpackAPI
 	/**
 	 *
 	 */
-	public function List( $sPageId )
+	public function ListAll( $sPageId )
 	{
 		$iMethod = NHTTPMethods::iPost;
 		$sRESTURL = "/ws/page/".$sPageId."/notes/list";

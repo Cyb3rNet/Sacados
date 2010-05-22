@@ -16,7 +16,7 @@
 /**
  *	Indicates the path of the Sacados library
  */
-include( APPPATH.'libraries/Sacados/bp.api.inc.php' );
+require_once( APPPATH.'libraries/Sacados/bp.api.inc.php' );
 
 
 /**
