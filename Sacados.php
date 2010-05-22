@@ -1,7 +1,22 @@
 <?php
 
 
-include( 'bp.api.inc.php' );
+/**
+ *	@package CI-Sacados
+ *	@version 1.0
+ *	@license MIT License
+ *
+ *	@copyright Copyright (c) 2010 Serafim Junior Dos Santos Fagundes Cyb3r Network
+ *	@author Serafim Junior Dos Santos Fagundes <serafim@cyb3r.ca>
+ *	
+ *	CodeIgniter library file of the API Wrapper for 37Signals's Backpack Web Application API
+ */
+
+
+/**
+ *	Indicates the path of the Sacados library
+ */
+include( APPPATH.'libraries/Sacados/bp.api.inc.php' );
 
 
 /**
@@ -24,6 +39,11 @@ define( 'BP_ISHTTPS', 'is_https' );
 
 class Sacados extends BpAPI
 {
+	/**
+	 *	@param array $aParams Class instatiation parameters
+	 *
+	 *	@access public
+	 */
 	public function __construct( $aParams = array() )
 	{
 		$this->_init_validate_params( $aParams );
@@ -31,6 +51,14 @@ class Sacados extends BpAPI
 		parent::__construct( $sAccountName, $sToken, $bHTTPS );
 	}
 	
+	
+	/**
+	 *	Initiates class instiation variables
+	 *
+	 *	@param array $aParams Class instatiation parameters
+	 *
+	 *	@access private
+	 */
 	private function _init_validate_params( $aParams )
 	{
 		if ( count( $aParams ) != 2 )
@@ -78,7 +106,15 @@ class Sacados extends BpAPI
 		}
 	}
 	
-	private _err( $sErrMsg )
+	
+	/**
+	 *	Ouputs an error message
+	 *
+	 *	@param string $sErrMsg The error message
+	 *
+	 *	@access private
+	 */
+	private function _err( $sErrMsg )
 	{
 		if ( defined( 'CI_VERSION' ) )
 		{
@@ -91,9 +127,20 @@ class Sacados extends BpAPI
 	}
 }
 
+
+/**
+ *
+ */
 class BpApi
 {
-	public function __construct( $sAccountName, $sToken, $bHTTPS = TRUE )
+	/**
+	 *	@param string $sAccountName
+	 *	@param string $sToken
+	 *	@param bool $bHTTPS Indicates the default usage of the HTTPS protocol; FALSE by default
+	 *
+	 *	@access public
+	 */
+	public function __construct( $sAccountName, $sToken, $bHTTPS = FALSE )
 	{
 		$this->_sAccountName = $sAccountName;
 		$this->_sToken = $sToken;
@@ -101,71 +148,160 @@ class BpApi
 	}
 	
 
-	public function &pages( $bHTTPS = FALSE )
+	/**
+	 *	Returns the Backpack Pages API object
+	 *
+	 *	@param bool $bHTTPS Indicates if this request object transacts in HTTPS
+	 *
+	 *	@access public
+	 *	@return object
+	 */
+	public function &pages( $bHTTPS = $this->_bHTTPS )
 	{
-		return = new CBackpackAPIPages( $this->_sAccountName, $this->_sToken, $bHTTPS || $this->_bHTTPS );
-	}
-	
-	
-	public function &notes( $bHTTPS = FALSE )
-	{
-		return = new CBackpackAPINotes( $this->_sAccountName, $this->_sToken, $bHTTPS || $this->_bHTTPS );
-	}
-		
-	
-	public function &lists( $bHTTPS = FALSE )
-	{
-		return = new CBackpackAPILists( $this->_sAccountName, $this->_sToken, $bHTTPS || $this->_bHTTPS );
-	}
-	
-	
-	public function &list_items( $bHTTPS = FALSE )
-	{
-		return = new CBackpackAPIListItems( $this->_sAccountName, $this->_sToken, $bHTTPS || $this->_bHTTPS );
+		return = new CBackpackAPIPages( $this->_sAccountName, $this->_sToken, $bHTTPS );
 	}
 	
 
-	//public function separators( $bHTTPS = FALSE )
+	/**
+	 *	Returns the Backpack Notes API object
+	 *
+	 *	@param bool $bHTTPS Indicates if this request object transacts in HTTPS
+	 *
+	 *	@access public
+	 *	@return object
+	 */
+	public function &notes( $bHTTPS = $this->_bHTTPS )
+	{
+		return = new CBackpackAPINotes( $this->_sAccountName, $this->_sToken, $bHTTPS );
+	}
+	
+
+	/**
+	 *	Returns the Backpack Lists API object
+	 *
+	 *	@param bool $bHTTPS Indicates if this request object transacts in HTTPS
+	 *
+	 *	@access public
+	 *	@return object
+	 */
+	public function &lists( $bHTTPS = $this->_bHTTPS )
+	{
+		return = new CBackpackAPILists( $this->_sAccountName, $this->_sToken, $bHTTPS );
+	}
+	
+
+	/**
+	 *	Returns the Backpack List Items API object
+	 *
+	 *	@param bool $bHTTPS Indicates if this request object transacts in HTTPS
+	 *
+	 *	@access public
+	 *	@return object
+	 */
+	public function &list_items( $bHTTPS = $this->_bHTTPS )
+	{
+		return = new CBackpackAPIListItems( $this->_sAccountName, $this->_sToken, $bHTTPS );
+	}
+	
+
+	/**
+	 *	Returns the Backpack Separators API object
+	 *
+	 *	@param bool $bHTTPS Indicates if this request object transacts in HTTPS
+	 *
+	 *	@access public
+	 *	@return object
+	 */
+	//public function separators( $bHTTPS = $this->_bHTTPS )
 	//{
-	//	return = new CBackpackAPISeparators( $this->_sAccountName, $this->_sToken, $bHTTPS || $this->_bHTTPS );
+	//	return = new CBackpackAPISeparators( $this->_sAccountName, $this->_sToken, $bHTTPS );
 	//}
 	
-	
-	public function &tags( $bHTTPS = FALSE )
+
+	/**
+	 *	Returns the Backpack Tags API object
+	 *
+	 *	@param bool $bHTTPS Indicates if this request object transacts in HTTPS
+	 *
+	 *	@access public
+	 *	@return object
+	 */
+	public function &tags( $bHTTPS = $this->_bHTTPS )
 	{
-		return = new CBackpackAPITags( $this->_sAccountName, $this->_sToken, $bHTTPS || $this->_bHTTPS );
+		return = new CBackpackAPITags( $this->_sAccountName, $this->_sToken, $bHTTPS );
 	}
 	
 
-	//public function &reminders( $bHTTPS = FALSE )
+	/**
+	 *	Returns the Backpack Reminders API object
+	 *
+	 *	@param bool $bHTTPS Indicates if this request object transacts in HTTPS
+	 *
+	 *	@access public
+	 *	@return object
+	 */
+	//public function &reminders( $bHTTPS = $this->_bHTTPS )
 	//{
-	//	return = new CBackpackAPIReminders( $this->_sAccountName, $this->_sToken, $bHTTPS || $this->_bHTTPS );
+	//	return = new CBackpackAPIReminders( $this->_sAccountName, $this->_sToken, $bHTTPS );
 	//}
 	
 
+	/**
+	 *	Returns the Backpack Status API object
+	 *
+	 *	@param bool $bHTTPS Indicates if this request object transacts in HTTPS
+	 *
+	 *	@access public
+	 *	@return object
+	 */
 	//public $emails;
-	//public function &status( $bHTTPS = FALSE )
+	//public function &status( $bHTTPS = $this->_bHTTPS )
 	//{
-	//	return = new CBackpackAPIStatus( $this->_sAccountName, $this->_sToken, $bHTTPS || $this->_bHTTPS );
+	//	return = new CBackpackAPIStatus( $this->_sAccountName, $this->_sToken, $bHTTPS );
 	//}
 	
 
-	//public function &journal( $bHTTPS = FALSE )
+	/**
+	 *	Returns the Backpack Journal API object
+	 *
+	 *	@param bool $bHTTPS Indicates if this request object transacts in HTTPS
+	 *
+	 *	@access public
+	 *	@return object
+	 */
+	//public function &journal( $bHTTPS = $this->_bHTTPS )
 	//{
-	//	return = new CBackpackAPIJournal( $this->_sAccountName, $this->_sToken, $bHTTPS || $this->_bHTTPS );
+	//	return = new CBackpackAPIJournal( $this->_sAccountName, $this->_sToken, $bHTTPS );
 	//}
 	
 
-	//public function &users( $bHTTPS = FALSE )
+	/**
+	 *	Returns the Backpack Users API object
+	 *
+	 *	@param bool $bHTTPS Indicates if this request object transacts in HTTPS
+	 *
+	 *	@access public
+	 *	@return object
+	 */
+	//public function &users( $bHTTPS = $this->_bHTTPS )
 	//{
-	//	return = new CBackpackAPIUsers( $this->_sAccountName, $this->_sToken, $bHTTPS || $this->_bHTTPS );
+	//	return = new CBackpackAPIUsers( $this->_sAccountName, $this->_sToken, $bHTTPS );
 	//}
 	
 
-	//public function &bookmarks( $bHTTPS = FALSE )
+	/**
+	 *	Returns the Backpack Bookmarks API object
+	 *
+	 *	@param bool $bHTTPS Indicates if this request object transacts in HTTPS
+	 *
+	 *	@access public
+	 *	@return object
+	 */
+	//public function &bookmarks( $bHTTPS = $this->_bHTTPS )
 	//{
-	//	return = new CBackpackAPIPages( $this->_sAccountName, $this->_sToken, $bHTTPS || $this->_bHTTPS );
+	//	return = new CBackpackAPIPages( $this->_sAccountName, $this->_sToken, $bHTTPS );
 	//}
 }
+
 
 ?>
